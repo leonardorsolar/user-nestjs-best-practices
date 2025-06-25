@@ -304,7 +304,7 @@ ignora a verificação de segurança do TypeScript. Só use se tiver certeza que
 
 **Poderia ter utilizado a class-validator para garantir que os dados sempre cheguem corretos.**
 
-## ✅ Refatoração 3: Atualizar o `UserModule`
+## ✅ Refatoração 4: Atualizar o `UserModule`
 
 ```ts
 // src/user/user.module.ts
