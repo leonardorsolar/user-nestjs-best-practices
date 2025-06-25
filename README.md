@@ -101,7 +101,7 @@ src/
 
 ---
 
-## 🧠 Etapa 1: Melhorar o `DatabaseService`
+## ✅ Refatoração 1: Melhorar o `DatabaseService`
 
 ### Problema:
 
@@ -168,7 +168,7 @@ export class DatabaseService implements OnModuleInit {
 
 ---
 
-## 🧠 Etapa 2: Criar `UserRepository`
+## ✅ Refatoração 1: Criar `UserRepository`
 
 ### Por que?
 
@@ -234,11 +234,10 @@ export class UserRepository implements OnModuleInit {
 
 ## ✅ Refatoração 3:
 
-## 🧠 Separação de Responsabilidades + Encapsulamento do SQLite no `UserService`
+- Separação de Responsabilidades + Encapsulamento do SQLite no `UserService`
+- Atualizar `UserService` para usar o `UserRepository`
 
-## 🧠 Atualizar `UserService` para usar o `UserRepository`
-
-## 📌 Antes da refatoração:
+### 📌 Antes da refatoração:
 
 O `UserService`:
 
@@ -305,7 +304,7 @@ ignora a verificação de segurança do TypeScript. Só use se tiver certeza que
 
 **Poderia ter utilizado a class-validator para garantir que os dados sempre cheguem corretos.**
 
-## 🧠 Etapa 4: Atualizar o `UserModule`
+## ✅ Refatoração 3: Atualizar o `UserModule`
 
 ```ts
 // src/user/user.module.ts
@@ -346,7 +345,7 @@ export class UserModule {}
 
 ---
 
-Outras melhorias: (emcontrução)
+# Outras melhorias: (em contrução)
 
 ### 5. **Validação e tratamento de erros**
 
