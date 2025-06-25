@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lista de Usuários</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Usuários Cadastrados</h1>
+  <ul id="userList"></ul>
+
+  <script>
+    fetch('/user')
+      .then((res) => res.json())
+      .then((data) => {
+        const list = document.getElementById('userList');
+        list.innerHTML = '';
+        data.forEach((user) => {
+          const item = document.createElement('li');
+          item.textContent = `${user.name} (${user.email})`;
+          list.appendChild(item);
+        });
+      });
+  </script>
+</body>
+</html>
