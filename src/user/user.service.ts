@@ -1,68 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  private get db() {
-    return this.databaseService.connection;
-  }
-
-  create(createUserDto: CreateUserDto) {
-    const { name, email } = createUserDto;
-    return new Promise((resolve, reject) => {
-      this.db.run(
-        `INSERT INTO users (name, email) VALUES (?, ?)`,
-        [name, email],
-        function (err) {
-          if (err) reject(err);
-          else resolve({ id: this.lastID, name, email });
-        },
-      );
-    });
+  create(dto: CreateUserDto) {
+    return this.userRepository.create(dto.name, dto.email);
   }
 
   findAll() {
-    return new Promise((resolve, reject) => {
-      this.db.all(`SELECT * FROM users`, [], (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows);
-      });
-    });
+    return this.userRepository.findAll();
   }
 
   findOne(id: number) {
-    return new Promise((resolve, reject) => {
-      this.db.get(`SELECT * FROM users WHERE id = ?`, [id], (err, row) => {
-        if (err) reject(err);
-        else resolve(row);
-      });
-    });
+    return this.userRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    const { name, email } = updateUserDto;
-    return new Promise((resolve, reject) => {
-      this.db.run(
-        `UPDATE users SET name = ?, email = ? WHERE id = ?`,
-        [name, email, id],
-        function (err) {
-          if (err) reject(err);
-          else resolve({ id, name, email });
-        },
-      );
-    });
+  update(id: number, dto: UpdateUserDto) {
+    return this.userRepository.update(id, dto.name!, dto.email!);
   }
 
   remove(id: number) {
-    return new Promise((resolve, reject) => {
-      this.db.run(`DELETE FROM users WHERE id = ?`, [id], function (err) {
-        if (err) reject(err);
-        else resolve({ deleted: this.changes });
-      });
-    });
+    return this.userRepository.delete(id);
   }
 }
